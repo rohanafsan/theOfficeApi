@@ -10,22 +10,23 @@ router.get('/', (request, response, next) => {
     });
 });
 
+// router.get('/:id', (request, response, next) => {
+//     const { id } = request.params;
+//     pool.query('SELECT * FROM characterquotes WHERE id = $1', [id], (err, res) => {
+//         if (err) return next(err);
+//         response.json(res.rows);
+//     });
+// });
+
 router.get('/:id', (request, response, next) => {
     const { id } = request.params;
-    console.log(id);
     pool.query('SELECT quote FROM characterquotes WHERE firstname = $1 ORDER BY RANDOM() LIMIT 1', [id], (err, res) => {
         if (err) return next(err);
         response.json(res.rows);
     });
 });
 
-router.get('/:id', (request, response, next) => {
-    const { id } = request.params;
-    pool.query('SELECT * FROM characterquotes WHERE id = $1', [id], (err, res) => {
-        if (err) return next(err);
-        response.json(res.rows);
-    });
-});
+
 
 router.post('/', (request, response, next) => {
     const { firstname, quote } = request.body;
